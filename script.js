@@ -8,6 +8,7 @@ const pauseBtn = document.getElementById("pause-btn");
 const resetBtn = document.getElementById("reset-btn");
 const lapBtn = document.getElementById("lap-btn");
 const clearLapsBtn = document.getElementById("clear-laps-btn");
+const card = document.querySelector(".stopwatch-card");
 
 // time variables
 let startTime = 0;
@@ -45,6 +46,7 @@ function startStopwatch() {
   startTime = Date.now();
   timerInterval = setInterval(updateTime, 10);
   statusLine.textContent = "Stopwatch is running...";
+  card.classList.add("running");
 }
 
 function pauseStopwatch() {
@@ -54,6 +56,7 @@ function pauseStopwatch() {
   const now = Date.now();
   elapsed += now - startTime;
   statusLine.textContent = "Paused ⏸";
+   card.classList.remove("running");
 }
 
 function resetStopwatch() {
@@ -65,6 +68,7 @@ function resetStopwatch() {
   timeDisplay.textContent = "00 : 00 . 00";
   lapsList.innerHTML = "";
   statusLine.textContent = "Reset done. Ready to track your time ⏱";
+    card.classList.remove("running");
 }
 
 function addLap() {
