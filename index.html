@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Prodigy Task 2 | Stopwatch Web App</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="app">
+    <header class="app-header">
+      <div class="logo-circle">P</div>
+      <div class="header-text">
+        <h1>Stopwatch Web App</h1>
+        <p>Prodigy InfoTech • Web Development Internship (Task 2)</p>
+      </div>
+    </header>
+
+    <main class="stopwatch-card">
+      <div class="time-display" id="time-display">
+        00 : 00 . 00
+      </div>
+
+      <div class="controls">
+        <button id="start-btn" class="btn primary">Start</button>
+        <button id="pause-btn" class="btn ghost">Pause</button>
+        <button id="reset-btn" class="btn danger">Reset</button>
+        <button id="lap-btn" class="btn outline">Lap</button>
+      </div>
+
+      <div class="status-line" id="status-line">
+        Ready to track your time ⏱
+      </div>
+
+      <section class="laps-section">
+        <div class="laps-header">
+          <h2>Laps</h2>
+          <button id="clear-laps-btn" class="btn tiny">Clear</button>
+        </div>
+        <ul id="laps-list" class="laps-list">
+          <!-- Lap items will appear here from JS -->
+        </ul>
+      </section>
+    </main>
+
+    <footer class="footer">
+      © 2025 Falaknaaz Mujawar • Prodigy Web Dev Intern • Task 2 – Stopwatch Web App
+    </footer>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
