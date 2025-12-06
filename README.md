@@ -28,9 +28,13 @@ Tech Stack:
 Project Structure:
 
 PRODIGY_WD_02/
+
 │── index.html    # main UI
+
 │── style.css     # styles and layout
+
 └── script.js     # stopwatch functionality
+
 
 Internship Info:
 
