@@ -1,4 +1,4 @@
-// get elements
+// Get elements
 const timeDisplay = document.getElementById("time-display");
 const statusLine = document.getElementById("status-line");
 const lapsList = document.getElementById("laps-list");
@@ -8,19 +8,18 @@ const pauseBtn = document.getElementById("pause-btn");
 const resetBtn = document.getElementById("reset-btn");
 const lapBtn = document.getElementById("lap-btn");
 const clearLapsBtn = document.getElementById("clear-laps-btn");
-const card = document.querySelector(".stopwatch-card");
 
-// time variables
-let startTime = 0;
-let elapsed = 0;
+// Time variables (milliseconds based)
+let startTime = 0;      // when current run started
+let elapsed = 0;        // total elapsed ms (including previous runs)
 let timerInterval = null;
 let isRunning = false;
 let lapCount = 0;
 
-// format time helper (ms -> mm : ss . cs)
+// Convert ms -> "MM : SS . CC"
 function formatTime(ms) {
-  const totalCentiseconds = Math.floor(ms / 10);
-  const cs = totalCentiseconds % 100;
+  const totalCentiseconds = Math.floor(ms / 10);   // 1 cs = 10 ms
+  const cs = totalCentiseconds % 100;              // 0–99
   const totalSeconds = Math.floor(totalCentiseconds / 100);
   const s = totalSeconds % 60;
   const m = Math.floor(totalSeconds / 60);
@@ -32,47 +31,55 @@ function formatTime(ms) {
   return `${mm} : ${ss} . ${cc}`;
 }
 
-// update display every frame
+// Update display every tick
 function updateTime() {
   const now = Date.now();
   const diff = now - startTime + elapsed;
   timeDisplay.textContent = formatTime(diff);
 }
 
-// control functions
+// Start
 function startStopwatch() {
   if (isRunning) return;
+
   isRunning = true;
-  startTime = Date.now();
-  timerInterval = setInterval(updateTime, 10);
+  startTime = Date.now();               // start fresh from now
+  timerInterval = setInterval(updateTime, 10); // update every 10ms (centiseconds)
   statusLine.textContent = "Stopwatch is running...";
-  card.classList.add("running");
 }
 
+// Pause
 function pauseStopwatch() {
   if (!isRunning) return;
+
   isRunning = false;
   clearInterval(timerInterval);
+  timerInterval = null;
+
   const now = Date.now();
-  elapsed += now - startTime;
+  elapsed += now - startTime;           // add current run to total
   statusLine.textContent = "Paused ⏸";
-   card.classList.remove("running");
 }
 
+// Reset
 function resetStopwatch() {
   isRunning = false;
   clearInterval(timerInterval);
+  timerInterval = null;
+
   startTime = 0;
   elapsed = 0;
   lapCount = 0;
+
   timeDisplay.textContent = "00 : 00 . 00";
   lapsList.innerHTML = "";
   statusLine.textContent = "Reset done. Ready to track your time ⏱";
-    card.classList.remove("running");
 }
 
+// Add lap
 function addLap() {
   if (!isRunning) return;
+
   lapCount++;
   const now = Date.now();
   const currentTime = now - startTime + elapsed;
@@ -90,15 +97,18 @@ function addLap() {
 
   li.appendChild(labelSpan);
   li.appendChild(timeSpan);
-  lapsList.prepend(li); // latest lap on top
+
+  // Latest lap on top
+  lapsList.prepend(li);
 }
 
+// Clear laps
 function clearLaps() {
   lapsList.innerHTML = "";
   lapCount = 0;
 }
 
-// attach events
+// Event listeners
 startBtn.addEventListener("click", startStopwatch);
 pauseBtn.addEventListener("click", pauseStopwatch);
 resetBtn.addEventListener("click", resetStopwatch);
